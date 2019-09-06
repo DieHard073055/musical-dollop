@@ -1,3 +1,4 @@
+
 import itunes_playlist_parser
 import pytest
 import json
@@ -7,7 +8,7 @@ from pathlib import Path
 """ TODO:
 - [x] find duplicates in the playlist
 - [x] find common tracks across a list of given playlist
-- [ ] plot common statistics
+- [x] plot common statistics
 """
 TEST_DIR_NAME='data'
 TEST_DIR_PATH=Path(os.path.join(os.path.dirname(__file__), TEST_DIR_NAME))
@@ -59,7 +60,12 @@ def test_find_common_tracks_across_playlists(playlist_file_1, playlist_file_2, e
            len(common_tracks) == expected_nof_common_tracks
     ), "should have the expected common tracks if all the commons tracks were found"
 
-
-def test_plot_stats_about_playlists():
-    raise NotImplementedError()
-
+@pytest.mark.parametrize("playlist_file", [
+        ('maya.xml'),
+        ('mymusic.xml'),
+        ('pl1.xml'),
+        ('pl2.xml')
+])
+def test_plot_stats(playlist_file):
+    tracks = itunes_playlist_parser.parse_file(os.path.join(TEST_DIR_PATH, playlist_file))["Tracks"]
+    itunes_playlist_parser.plot_statistics(tracks)
