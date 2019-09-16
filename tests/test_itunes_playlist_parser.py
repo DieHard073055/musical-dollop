@@ -42,7 +42,6 @@ def test_duplicates_in_playlist(playlist_file, nof_duplicates):
     tracks = items["Tracks"]
 
     # calculate duplicates
-    track_duplicates_counter = dict()
     duplicates = itunes_playlist_parser.get_duplicate_tracks(tracks)
     assert len(duplicates) == nof_duplicates, "should have the exact amount of duplicates we provided"
 
